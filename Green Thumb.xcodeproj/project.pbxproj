@@ -1,0 +1,592 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C51A15E32611783200D43581 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A15E22611783200D43581 /* AppDelegate.swift */; };
+		C51A15E52611783200D43581 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A15E42611783200D43581 /* SceneDelegate.swift */; };
+		C51A15E72611783200D43581 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A15E62611783200D43581 /* ViewController.swift */; };
+		C51A15EA2611783200D43581 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C51A15E82611783200D43581 /* Main.storyboard */; };
+		C51A15EC2611783500D43581 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C51A15EB2611783500D43581 /* Assets.xcassets */; };
+		C51A15EF2611783500D43581 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C51A15ED2611783500D43581 /* LaunchScreen.storyboard */; };
+		C51A15FA2611783500D43581 /* Green_ThumbTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A15F92611783500D43581 /* Green_ThumbTests.swift */; };
+		C51A16052611783500D43581 /* Green_ThumbUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51A16042611783500D43581 /* Green_ThumbUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C51A15F62611783500D43581 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C51A15D72611783200D43581 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C51A15DE2611783200D43581;
+			remoteInfo = "Green Thumb";
+		};
+		C51A16012611783500D43581 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C51A15D72611783200D43581 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C51A15DE2611783200D43581;
+			remoteInfo = "Green Thumb";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C51A15DF2611783200D43581 /* Green Thumb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Green Thumb.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C51A15E22611783200D43581 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C51A15E42611783200D43581 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		C51A15E62611783200D43581 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C51A15E92611783200D43581 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C51A15EB2611783500D43581 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C51A15EE2611783500D43581 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C51A15F02611783500D43581 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C51A15F52611783500D43581 /* Green ThumbTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Green ThumbTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C51A15F92611783500D43581 /* Green_ThumbTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Green_ThumbTests.swift; sourceTree = "<group>"; };
+		C51A15FB2611783500D43581 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C51A16002611783500D43581 /* Green ThumbUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Green ThumbUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C51A16042611783500D43581 /* Green_ThumbUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Green_ThumbUITests.swift; sourceTree = "<group>"; };
+		C51A16062611783500D43581 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C51A15DC2611783200D43581 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C51A15F22611783500D43581 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C51A15FD2611783500D43581 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C51A15D62611783200D43581 = {
+			isa = PBXGroup;
+			children = (
+				C51A15E12611783200D43581 /* Green Thumb */,
+				C51A15F82611783500D43581 /* Green ThumbTests */,
+				C51A16032611783500D43581 /* Green ThumbUITests */,
+				C51A15E02611783200D43581 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C51A15E02611783200D43581 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C51A15DF2611783200D43581 /* Green Thumb.app */,
+				C51A15F52611783500D43581 /* Green ThumbTests.xctest */,
+				C51A16002611783500D43581 /* Green ThumbUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C51A15E12611783200D43581 /* Green Thumb */ = {
+			isa = PBXGroup;
+			children = (
+				C51A15E22611783200D43581 /* AppDelegate.swift */,
+				C51A15E42611783200D43581 /* SceneDelegate.swift */,
+				C51A15E62611783200D43581 /* ViewController.swift */,
+				C51A15E82611783200D43581 /* Main.storyboard */,
+				C51A15EB2611783500D43581 /* Assets.xcassets */,
+				C51A15ED2611783500D43581 /* LaunchScreen.storyboard */,
+				C51A15F02611783500D43581 /* Info.plist */,
+			);
+			path = "Green Thumb";
+			sourceTree = "<group>";
+		};
+		C51A15F82611783500D43581 /* Green ThumbTests */ = {
+			isa = PBXGroup;
+			children = (
+				C51A15F92611783500D43581 /* Green_ThumbTests.swift */,
+				C51A15FB2611783500D43581 /* Info.plist */,
+			);
+			path = "Green ThumbTests";
+			sourceTree = "<group>";
+		};
+		C51A16032611783500D43581 /* Green ThumbUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C51A16042611783500D43581 /* Green_ThumbUITests.swift */,
+				C51A16062611783500D43581 /* Info.plist */,
+			);
+			path = "Green ThumbUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C51A15DE2611783200D43581 /* Green Thumb */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C51A16092611783500D43581 /* Build configuration list for PBXNativeTarget "Green Thumb" */;
+			buildPhases = (
+				C51A15DB2611783200D43581 /* Sources */,
+				C51A15DC2611783200D43581 /* Frameworks */,
+				C51A15DD2611783200D43581 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Green Thumb";
+			productName = "Green Thumb";
+			productReference = C51A15DF2611783200D43581 /* Green Thumb.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C51A15F42611783500D43581 /* Green ThumbTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C51A160C2611783500D43581 /* Build configuration list for PBXNativeTarget "Green ThumbTests" */;
+			buildPhases = (
+				C51A15F12611783500D43581 /* Sources */,
+				C51A15F22611783500D43581 /* Frameworks */,
+				C51A15F32611783500D43581 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C51A15F72611783500D43581 /* PBXTargetDependency */,
+			);
+			name = "Green ThumbTests";
+			productName = "Green ThumbTests";
+			productReference = C51A15F52611783500D43581 /* Green ThumbTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C51A15FF2611783500D43581 /* Green ThumbUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C51A160F2611783500D43581 /* Build configuration list for PBXNativeTarget "Green ThumbUITests" */;
+			buildPhases = (
+				C51A15FC2611783500D43581 /* Sources */,
+				C51A15FD2611783500D43581 /* Frameworks */,
+				C51A15FE2611783500D43581 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C51A16022611783500D43581 /* PBXTargetDependency */,
+			);
+			name = "Green ThumbUITests";
+			productName = "Green ThumbUITests";
+			productReference = C51A16002611783500D43581 /* Green ThumbUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C51A15D72611783200D43581 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					C51A15DE2611783200D43581 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+					C51A15F42611783500D43581 = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = C51A15DE2611783200D43581;
+					};
+					C51A15FF2611783500D43581 = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = C51A15DE2611783200D43581;
+					};
+				};
+			};
+			buildConfigurationList = C51A15DA2611783200D43581 /* Build configuration list for PBXProject "Green Thumb" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C51A15D62611783200D43581;
+			productRefGroup = C51A15E02611783200D43581 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C51A15DE2611783200D43581 /* Green Thumb */,
+				C51A15F42611783500D43581 /* Green ThumbTests */,
+				C51A15FF2611783500D43581 /* Green ThumbUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C51A15DD2611783200D43581 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C51A15EF2611783500D43581 /* LaunchScreen.storyboard in Resources */,
+				C51A15EC2611783500D43581 /* Assets.xcassets in Resources */,
+				C51A15EA2611783200D43581 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C51A15F32611783500D43581 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C51A15FE2611783500D43581 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C51A15DB2611783200D43581 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C51A15E72611783200D43581 /* ViewController.swift in Sources */,
+				C51A15E32611783200D43581 /* AppDelegate.swift in Sources */,
+				C51A15E52611783200D43581 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C51A15F12611783500D43581 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C51A15FA2611783500D43581 /* Green_ThumbTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C51A15FC2611783500D43581 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C51A16052611783500D43581 /* Green_ThumbUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C51A15F72611783500D43581 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C51A15DE2611783200D43581 /* Green Thumb */;
+			targetProxy = C51A15F62611783500D43581 /* PBXContainerItemProxy */;
+		};
+		C51A16022611783500D43581 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C51A15DE2611783200D43581 /* Green Thumb */;
+			targetProxy = C51A16012611783500D43581 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C51A15E82611783200D43581 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C51A15E92611783200D43581 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C51A15ED2611783500D43581 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C51A15EE2611783500D43581 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C51A16072611783500D43581 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C51A16082611783500D43581 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C51A160A2611783500D43581 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Green Thumb/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "jacobmayl.Green-Thumb";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C51A160B2611783500D43581 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Green Thumb/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "jacobmayl.Green-Thumb";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C51A160D2611783500D43581 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Green ThumbTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "jacobmayl.Green-ThumbTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Green Thumb.app/Green Thumb";
+			};
+			name = Debug;
+		};
+		C51A160E2611783500D43581 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Green ThumbTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "jacobmayl.Green-ThumbTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Green Thumb.app/Green Thumb";
+			};
+			name = Release;
+		};
+		C51A16102611783500D43581 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Green ThumbUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "jacobmayl.Green-ThumbUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Green Thumb";
+			};
+			name = Debug;
+		};
+		C51A16112611783500D43581 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Green ThumbUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "jacobmayl.Green-ThumbUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Green Thumb";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C51A15DA2611783200D43581 /* Build configuration list for PBXProject "Green Thumb" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C51A16072611783500D43581 /* Debug */,
+				C51A16082611783500D43581 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C51A16092611783500D43581 /* Build configuration list for PBXNativeTarget "Green Thumb" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C51A160A2611783500D43581 /* Debug */,
+				C51A160B2611783500D43581 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C51A160C2611783500D43581 /* Build configuration list for PBXNativeTarget "Green ThumbTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C51A160D2611783500D43581 /* Debug */,
+				C51A160E2611783500D43581 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C51A160F2611783500D43581 /* Build configuration list for PBXNativeTarget "Green ThumbUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C51A16102611783500D43581 /* Debug */,
+				C51A16112611783500D43581 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C51A15D72611783200D43581 /* Project object */;
+}
