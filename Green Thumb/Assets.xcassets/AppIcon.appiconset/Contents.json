@@ -31,11 +31,13 @@
       "size" : "40x40"
     },
     {
+      "filename" : "gt_app.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "60x60"
     },
     {
+      "filename" : "gt_app-1.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "60x60"
