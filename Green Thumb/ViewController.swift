@@ -43,9 +43,15 @@ struct RCNotifications {
     static let UpdatedCapsense = "team7.greenthumb.updatedcapsense"
 }
 
+struct characteristicvars {
+    static var toggleLightsCharacteristic : CBCharacteristic? = nil
+    static var myPeripheral : CBPeripheral? = nil
+}
+
 
 class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate {
     
+    //properties:
     var centralManager: CBCentralManager!  //central is phone
     var myPeripheral: CBPeripheral!  //peripheral is board
     // Vars for Get Readings Service:
@@ -61,8 +67,8 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     var automateCharacteristic : CBCharacteristic!
     var waterOptionCharacteristic : CBCharacteristic!
     //vars for light service
-    var lightService : CBService!
-    var toggleLightsCharacteristic : CBCharacteristic!
+    private var lightService : CBService?
+    private var toggleLightsCharacteristic : CBCharacteristic?
     var startTimeCharacteristic : CBCharacteristic!
     var stopTimeCharacteristic : CBCharacteristic!
     var lightOptionCharacteristic : CBCharacteristic!
@@ -97,6 +103,8 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
                 print("MATCH FOUND!")
                 self.centralManager.stopScan()  // stop scanning
                 self.myPeripheral = peripheral  // assign the myPeripheral obj to this peripheral
+                characteristicvars.myPeripheral = peripheral
+                characteristicvars.myPeripheral?.delegate = self
                 self.myPeripheral.delegate = self  //  not sure but important. Makes somethig conform
                 self.centralManager.connect(peripheral, options: nil)  // connect peripheral. Calls next function
                         
@@ -203,6 +211,10 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
             // for light service:
             case BLEParamters.toggleLightsCharacteristicUUID:
                 toggleLightsCharacteristic = characteristic
+                characteristicvars.toggleLightsCharacteristic = characteristic
+                var parameter = NSInteger(1)  // sets write val
+                let data = NSData(bytes: &parameter, length: 1)
+                self.myPeripheral.writeValue(data as Data, for: characteristic, type: .withoutResponse)
                 print("FOUND toggleLightsCharacteristic")
                 numChars += 1
                 if(toggleLightsCharacteristic == nil) { print("TOGGLE LIGHTS CHAR IS STILL NIL") } // is not printed
@@ -249,6 +261,13 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
        self.myPeripheral.writeValue(value, for: characteristic, type: .withoutResponse)
      }
     
+    func toggleLights( val: Int8)
+    {
+        var parameter = NSInteger(val)  // sets write val
+        let data = NSData(bytes: &parameter, length: 1)
+        characteristicvars.myPeripheral!.writeValue(data as Data, for: characteristicvars.toggleLightsCharacteristic!, type: CBCharacteristicWriteType.withoutResponse)
+    }
+    
 //-------------------------StoryBoard Code below here------------------------------
     
     override func viewDidLoad() {
@@ -257,6 +276,8 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         super.viewDidLoad()
         ContinueButton?.isHidden = true;
         statusLabel?.isHidden = true;
+        helpLabel?.isHidden = true;
+        
     }
     
     @IBOutlet weak var connectBluetoothButton: UIButton!
@@ -277,36 +298,162 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         startBluetoothButton.isEnabled = false
     }
     
+    
+    //READINGS PAGE
+    @IBOutlet weak var TempLabel: UILabel!
+    @IBOutlet weak var MoistLabel: UILabel!
+    @IBOutlet weak var phLabel: UILabel!
+    
     //LIGHTS PAGE:
+    var lightingOption = 0;
     
     @IBOutlet weak var lightswitch: UISwitch!
     @IBAction func lightswitchAction(_ sender: UISwitch) {
- 
+        
         if sender.isOn {
-
-                
             var parameter = NSInteger(1)  // sets high alert
             let data = NSData(bytes: &parameter, length: 1)
-            if toggleLightsCharacteristic == nil { print("in write: TOGGLE LIGHTS CHAR IS NIL") } // is printed
-            if toggleLightsCharacteristic != nil{
-                write(value: data as Data, characteristic: toggleLightsCharacteristic);
-                print("wrote value")
+            //if toggleLightsCharacteristic == nil { print("in write: TOGGLE LIGHTS CHAR IS NIL") } // is printed
+            if characteristicvars.toggleLightsCharacteristic != nil{
+                //write(value: data as Data, characteristic: characteristicvars.toggleLightsCharacteristic!);
+                //characteristicvars.myPeripheral!.writeValue(data as Data, for: characteristicvars.toggleLightsCharacteristic!, type: .withoutResponse)
+                toggleLights(val: 1)
+                print("LIGHTS: wrote value 1")
             }
             
         } else {
             var parameter = NSInteger(0)  // sets high alert
             let data = NSData(bytes: &parameter, length: 1)
-            if toggleLightsCharacteristic != nil{
-                write(value: data as Data, characteristic: toggleLightsCharacteristic);
-                print("wrote value")
+            if characteristicvars.toggleLightsCharacteristic != nil{
+                //write(value: data as Data, characteristic: toggleLightsCharacteristic);
+                //characteristicvars.myPeripheral!.writeValue(data as Data, for: characteristicvars.toggleLightsCharacteristic!, type: .withoutResponse)
+                toggleLights(val: 0)
+                print("LIGHTS: wrote value 0")
             }
         }
- 
+    }
+    
+    @IBOutlet weak var StartTime: UIDatePicker!
+    @IBAction func StartTimeAction(_ sender: Any) {
+    }
+    @IBOutlet weak var EndTime: UIDatePicker!
+    @IBAction func EndTimeAction(_ sender: Any) {
+    }
+    @IBOutlet weak var SetTimeButton: UIButton!
+    @IBAction func SetTimeAction(_ sender: Any) {
+        var startDiff = abs(NSDate().timeIntervalSince(StartTime.date))
+        var endDiff = abs(NSDate().timeIntervalSince(EndTime.date))
+        var lightTime = abs(startDiff-endDiff)
+        
+        if(NSDate().timeIntervalSince(StartTime.date) > 0) // if the time already passed today
+        {
+            // have the start time be one day in the future from right now minus the difference.
+            //print("this time has passed")
+            startDiff = (60*60*24) - startDiff;
+        }
+        
+        // this is all just for debugging
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.short
+        dateFormatter.timeStyle = DateFormatter.Style.short
+        let strDate = dateFormatter.string(from: StartTime.date)
+        let endDate = dateFormatter.string(from: EndTime.date)
+        
+        print("SENDING LIGHT SCHEDULE DATA:")
+        print("Start time: \(strDate)")
+        print("End time: \(endDate)")
+        print("Total: seconds of light: \(lightTime)")
+        print("Starting in \(startDiff)sec from now")
+        
+        //then  need to send data
         
     }
- 
+    
+// WATER PAGE
+    @IBOutlet weak var WaterFreq: UITextField!
+    @IBAction func WaterFreqAction(_ sender: Any) {
+    }
+    
+    @IBOutlet weak var WaterTime: UIDatePicker!
+    @IBAction func WaterTimeAction(_ sender: Any) {
+    }
+    
+    @IBOutlet weak var helpLabel: UILabel!
+    
+    @IBOutlet weak var helpButton: UIButton!
+    @IBAction func helpButtonAction(_ sender: Any) {
+        if helpLabel.isHidden == false {
+            helpLabel.isHidden = true;
+        } else {
+        helpLabel.isHidden = false;
+        }
+    }
+    
+    @IBOutlet weak var automateSwitch: UISwitch!
+    @IBAction func automateAction(_ sender: UISwitch) {
+        
+            if sender.isOn {
+                var parameter = NSInteger(1)  // write val 1
+                let data = NSData(bytes: &parameter, length: 1)
+                //if toggleLightsCharacteristic == nil { print("in write: TOGGLE LIGHTS CHAR IS NIL") } // is printed
+                if waterNowCharacteristic != nil{
+                    print("Automate Watering on")
+                }
+                print("Automate Watering: ON")
+                }
+                else {
+                    var parameter = NSInteger(0)  // write val 1
+                    let data = NSData(bytes: &parameter, length: 1)
+                    //if toggleLightsCharacteristic == nil { print("in write: TOGGLE LIGHTS CHAR IS NIL") } // is printed
+                    if automateCharacteristic != nil{
+                        print("Automate Watering off")
+                    }
+                    print("Automate Watering: OFF")
+                }
+            
+    }
+    @IBOutlet weak var waterNowButton: UIButton!
+    @IBAction func WaterNowAction(_ sender: Any) {
+        var parameter = NSInteger(1)  // write val 1
+        let data = NSData(bytes: &parameter, length: 1)
+        //if toggleLightsCharacteristic == nil { print("in write: TOGGLE LIGHTS CHAR IS NIL") } // is printed
+        if waterNowCharacteristic != nil{
+            print("Watering now")
+        }
+        print("Watering now")
+    // do i need to write back to a 0 to turn pump off? We'll see
+    }
     
     
+    @IBOutlet weak var SetWaterButton: UIButton!
+    @IBAction func SetWaterAction(_ sender: Any) {
+        if(WaterTime == nil || WaterFreq.text == nil) {
+            print("Missing required fields")
+            return
+        }
+        var time = abs(NSDate().timeIntervalSince(WaterTime.date))
+        if(NSDate().timeIntervalSince(WaterTime.date) > 0) // if the time already passed today
+        {
+            // have the start time be one day in the future from right now minus the difference.
+            print("this time has passed")
+            time = (60*60*24) - time;
+        }
+        var waterFreqInt = Int(WaterFreq.text ?? "0")!;
+        var waterFreqSeconds = (60*60*24*waterFreqInt)
+        // this is all just for debugging
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.short
+        dateFormatter.timeStyle = DateFormatter.Style.short
+        let strDate = dateFormatter.string(from: WaterTime.date)
+        
+        print("SENDING WATER SCHEDULE DATA:")
+        print("Start time: \(strDate) (\(time) seconds from now)")
+        print("Every \(waterFreqInt) days (\(waterFreqSeconds) seconds)")
+        
+    }
+    
+    
+// OLD JUNK IM TOO AFRAID TO DELETE------------------------------
     
     func blueToothOn()
     {
