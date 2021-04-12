@@ -143,124 +143,6 @@
             <point key="canvasLocation" x="89.719626168224295" y="15.550755939524839"/>
         </scene>
         <!--View Controller-->
-        <scene sceneID="1mV-LY-0Vy">
-            <objects>
-                <viewController id="dFD-Ww-7DG" customClass="ViewController" customModule="Green_Thumb" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="FIr-pQ-gez">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="off-Uz-2zA">
-                                <rect key="frame" x="355" y="20" width="53" height="34"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="34" id="IxP-Au-TnW"/>
-                                    <constraint firstAttribute="width" constant="35" id="aRD-zG-VhY"/>
-                                </constraints>
-                                <color key="tintColor" systemColor="labelColor"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Skip">
-                                            <attributes>
-                                                <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <font key="NSFont" size="15" name="Futura-Medium"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                </state>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zgL-zx-RgP">
-                                <rect key="frame" x="125" y="227" width="178" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="Cdy-wI-J54"/>
-                                    <constraint firstAttribute="width" constant="178" id="HN6-nR-mSZ"/>
-                                </constraints>
-                                <attributedString key="attributedText">
-                                    <fragment content="Bluetooth Setup">
-                                        <attributes>
-                                            <font key="NSFont" size="24" name="Futura-Medium"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="hip-NO-RKt">
-                                <rect key="frame" x="130" y="343" width="168" height="265"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8xh-Hk-Ycc">
-                                        <rect key="frame" x="32" y="0.0" width="104" height="30"/>
-                                        <state key="normal" title="Start Bluetooth"/>
-                                        <connections>
-                                            <action selector="startBluetoothAction:" destination="dFD-Ww-7DG" eventType="touchUpInside" id="vfX-r1-qph"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BQg-uk-tx9">
-                                        <rect key="frame" x="23" y="47" width="122" height="30"/>
-                                        <state key="normal" title="Search for Device"/>
-                                        <connections>
-                                            <action selector="SearchAction:" destination="dFD-Ww-7DG" eventType="touchUpInside" id="xZ9-mQ-cZo"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w7M-3E-30d">
-                                        <rect key="frame" x="20.666666666666657" y="94" width="127" height="30"/>
-                                        <state key="normal" title="Connect to Device"/>
-                                        <connections>
-                                            <action selector="connectDeviceActionWithSender:" destination="dFD-Ww-7DG" eventType="touchUpInside" id="z3x-Z1-tzw"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sen-6T-pQv">
-                                        <rect key="frame" x="22.666666666666657" y="141" width="123" height="30"/>
-                                        <state key="normal" title="Discover Services"/>
-                                        <connections>
-                                            <action selector="discoverServicesActionWithSender:" destination="dFD-Ww-7DG" eventType="touchUpInside" id="Kdl-BK-m9W"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6yt-e2-yhv">
-                                        <rect key="frame" x="0.0" y="188" width="168" height="30"/>
-                                        <state key="normal" title="Discover Characteristics"/>
-                                        <connections>
-                                            <action selector="discoverCharacteristicsActionWithSender:" destination="dFD-Ww-7DG" eventType="touchUpInside" id="Uq5-H5-hHo"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4KP-bi-owa">
-                                        <rect key="frame" x="45" y="235" width="78" height="30"/>
-                                        <state key="normal" title="Disconnect"/>
-                                        <connections>
-                                            <action selector="disconnectActionWithSender:" destination="dFD-Ww-7DG" eventType="touchUpInside" id="kVG-5d-8ZY"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="168" id="XWS-9f-YHA"/>
-                                    <constraint firstAttribute="height" constant="265" id="wcc-un-TN9"/>
-                                </constraints>
-                            </stackView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="7Hv-ir-oKn"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="off-Uz-2zA" firstAttribute="centerX" secondItem="FIr-pQ-gez" secondAttribute="centerX" constant="176.5" id="CLF-Pn-6i0"/>
-                            <constraint firstItem="hip-NO-RKt" firstAttribute="centerY" secondItem="FIr-pQ-gez" secondAttribute="centerY" constant="12.5" id="EN9-hR-kKk"/>
-                            <constraint firstItem="hip-NO-RKt" firstAttribute="centerX" secondItem="FIr-pQ-gez" secondAttribute="centerX" id="dYc-JV-gJu"/>
-                            <constraint firstItem="zgL-zx-RgP" firstAttribute="centerY" secondItem="FIr-pQ-gez" secondAttribute="centerY" constant="-214" id="dg0-my-T9y"/>
-                            <constraint firstItem="zgL-zx-RgP" firstAttribute="centerX" secondItem="FIr-pQ-gez" secondAttribute="centerX" id="k5w-Pc-RTB"/>
-                            <constraint firstItem="off-Uz-2zA" firstAttribute="centerY" secondItem="FIr-pQ-gez" secondAttribute="centerY" constant="-399" id="wzR-Ih-bS3"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="SOo-99-HXg"/>
-                    <connections>
-                        <outlet property="connectDeviceButton" destination="w7M-3E-30d" id="cIk-QE-SCe"/>
-                        <outlet property="disconnectButton" destination="4KP-bi-owa" id="LES-Ex-U4j"/>
-                        <outlet property="discoverCharacteristicsButton" destination="6yt-e2-yhv" id="Nho-wO-WLh"/>
-                        <outlet property="discoverServicesButton" destination="sen-6T-pQv" id="CkT-r4-nls"/>
-                        <outlet property="searchButton" destination="BQg-uk-tx9" id="gDT-Lo-FJF"/>
-                        <outlet property="startBluetoothButton" destination="8xh-Hk-Ycc" id="YXf-rP-Dxn"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5fG-9A-MUh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="55" y="761"/>
-        </scene>
-        <!--View Controller-->
         <scene sceneID="6HM-HP-uiD">
             <objects>
                 <viewController id="SWW-lL-dfI" customClass="ViewController" customModule="Green_Thumb" customModuleProvider="target" sceneMemberID="viewController">
@@ -872,7 +754,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="upp-UH-Iqy"/>
+        <segue reference="0PD-Mc-fEB"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.backward" catalog="system" width="128" height="98"/>

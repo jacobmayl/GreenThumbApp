@@ -27,8 +27,8 @@ private struct BLEParamters {
     //light service:
     static let lightServiceUUID = CBUUID(string: "BBBB")
     static let toggleLightsCharacteristicUUID = CBUUID(string: "B001")
-    static let startTimeCharacteristicUUID = CBUUID(string: "B002")
-    static let stopTimeCharacteristicUUID = CBUUID(string: "B003")
+    static let timeTillStartCharacteristicUUID = CBUUID(string: "B002")
+    static let lightTimeCharacteristicUUID = CBUUID(string: "B003")
     static let lightOptionCharacteristicUUID = CBUUID(string: "B004")
 }
 
@@ -43,9 +43,27 @@ struct RCNotifications {
     static let UpdatedCapsense = "team7.greenthumb.updatedcapsense"
 }
 
-struct characteristicvars {
+struct ble {
+    //peripheral is board
+    static var myPeripheral: CBPeripheral!
+    // Vars for Get Readings Service:
+    static var getReadingsService : CBService? = nil
+    static var tempCharacteristic : CBCharacteristic? = nil
+    static var moistCharacteristic : CBCharacteristic? = nil
+    static var phCharacteristic : CBCharacteristic? = nil
+    //vars for water service
+    static var waterService : CBService? = nil
+    static var waterNowCharacteristic : CBCharacteristic? = nil
+    static var waterFreqCharacteristic : CBCharacteristic? = nil
+    static var waterTimeCharacteristic : CBCharacteristic? = nil
+    static var automateCharacteristic : CBCharacteristic? = nil
+    static var waterOptionCharacteristic : CBCharacteristic? = nil
+    //vars for light service
+    static var lightService : CBService? = nil
     static var toggleLightsCharacteristic : CBCharacteristic? = nil
-    static var myPeripheral : CBPeripheral? = nil
+    static var timeTillStartCharacteristic : CBCharacteristic? = nil
+    static var lightTimeCharacteristic : CBCharacteristic? = nil
+    static var lightOptionCharacteristic : CBCharacteristic? = nil
 }
 
 
@@ -53,25 +71,8 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     
     //properties:
     var centralManager: CBCentralManager!  //central is phone
-    var myPeripheral: CBPeripheral!  //peripheral is board
-    // Vars for Get Readings Service:
-    var getReadingsService : CBService!
-    var tempCharacteristic : CBCharacteristic!
-    var moistCharacteristic : CBCharacteristic!
-    var phCharacteristic : CBCharacteristic!
-    //vars for water service
-    var waterService : CBService!
-    var waterNowCharacteristic : CBCharacteristic!
-    var waterFreqCharacteristic : CBCharacteristic!
-    var waterTimeCharacteristic : CBCharacteristic!
-    var automateCharacteristic : CBCharacteristic!
-    var waterOptionCharacteristic : CBCharacteristic!
-    //vars for light service
-    private var lightService : CBService?
-    private var toggleLightsCharacteristic : CBCharacteristic?
-    var startTimeCharacteristic : CBCharacteristic!
-    var stopTimeCharacteristic : CBCharacteristic!
-    var lightOptionCharacteristic : CBCharacteristic!
+    var myPeripheral: CBPeripheral!
+    
     
     //for debug
     var totServices = 3;
@@ -103,8 +104,8 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
                 print("MATCH FOUND!")
                 self.centralManager.stopScan()  // stop scanning
                 self.myPeripheral = peripheral  // assign the myPeripheral obj to this peripheral
-                characteristicvars.myPeripheral = peripheral
-                characteristicvars.myPeripheral?.delegate = self
+                ble.myPeripheral = peripheral
+                //
                 self.myPeripheral.delegate = self  //  not sure but important. Makes somethig conform
                 self.centralManager.connect(peripheral, options: nil)  // connect peripheral. Calls next function
                         
@@ -132,30 +133,27 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
             // assign this service to the correct var:
             switch service.uuid {
             case BLEParamters.getReadingsServiceUUID:
-                getReadingsService = service
+                ble.getReadingsService = service
                 print("FOUND getReadingsService")
                 numServices += 1
                 self.myPeripheral.discoverCharacteristics(nil, for: service)
             case BLEParamters.waterServiceUUID:
-                waterService = service
+                ble.waterService = service
                 print("FOUND waterService")
                 numServices += 1
                 self.myPeripheral.discoverCharacteristics(nil, for: service)
             case BLEParamters.lightServiceUUID:
-                lightService = service
+                ble.lightService = service
                 print("FOUND lightService")
                 numServices += 1
-                if(lightService == nil) { print("LIGHT SERVICE IS STILL NIL") }
                 peripheral.discoverCharacteristics(nil, for: service)
             // add other services here as they come
             default:
-                self.myPeripheral.discoverCharacteristics(nil, for: service) // added one more so light would flash
+                //self.myPeripheral.discoverCharacteristics(nil, for: service) // added one more so light would flash
                 break
             }
-            //self.myPeripheral.discoverCharacteristics(nil, for: service)
+
         }
-        // this have UUIDS we need to check for.
-        // Immediate alert has UUID of 1802
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
@@ -169,65 +167,55 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
             //print("CHARACTERISTIC FOUND: \(characteristic)")
             switch characteristic.uuid // if this is the alert char
             {
-            case CBUUID(string: "2A06"): // if alert level
-                // these three lines use the  send alert service to flash LED, proving connection
-                var parameter = NSInteger(2)  // sets high alert
-                let data = NSData(bytes: &parameter, length: 1)
-                write(value: data as Data, characteristic: characteristic);
             // for Get Readings Service:
             case BLEParamters.moistCharacteristicUUID:
-                moistCharacteristic = characteristic
+                ble.moistCharacteristic = characteristic
                 print("FOUND moistCharacteristic")
                 numChars += 1
             case BLEParamters.tempCharacteristicUUID:
-                tempCharacteristic = characteristic
+                ble.tempCharacteristic = characteristic
                 print("FOUND tempCharacteristic")
                 numChars += 1
             case BLEParamters.phCharacteristicUUID:
-                phCharacteristic = characteristic
+                ble.phCharacteristic = characteristic
                 print("FOUND phCharacteristic")
                 numChars += 1
             // for water service:
             case BLEParamters.waterNowCharacteristicUUID:
-                waterNowCharacteristic = characteristic
+                ble.waterNowCharacteristic = characteristic
                 print("FOUND waterNowCharacteristic")
                 numChars += 1
             case BLEParamters.waterFreqCharacteristicUUID:
-                waterFreqCharacteristic = characteristic
+                ble.waterFreqCharacteristic = characteristic
                 print("FOUND waterFreqCharacteristic")
                 numChars += 1
             case BLEParamters.waterTimeCharacteristicUUID:
-                waterTimeCharacteristic = characteristic
+                ble.waterTimeCharacteristic = characteristic
                 print("FOUND waterTimeCharacteristic")
                 numChars += 1
             case BLEParamters.automateCharacteristicUUID:
-                automateCharacteristic = characteristic
+                ble.automateCharacteristic = characteristic
                 print("FOUND automateCharacteristic")
                 numChars += 1
             case BLEParamters.waterOptionCharacteristicUUID:
-                waterOptionCharacteristic = characteristic
+                ble.waterOptionCharacteristic = characteristic
                 print("FOUND waterOptionCharacteristic")
                 numChars += 1
             // for light service:
             case BLEParamters.toggleLightsCharacteristicUUID:
-                toggleLightsCharacteristic = characteristic
-                characteristicvars.toggleLightsCharacteristic = characteristic
-                var parameter = NSInteger(1)  // sets write val
-                let data = NSData(bytes: &parameter, length: 1)
-                self.myPeripheral.writeValue(data as Data, for: characteristic, type: .withoutResponse)
+                ble.toggleLightsCharacteristic = characteristic
                 print("FOUND toggleLightsCharacteristic")
                 numChars += 1
-                if(toggleLightsCharacteristic == nil) { print("TOGGLE LIGHTS CHAR IS STILL NIL") } // is not printed
-            case BLEParamters.startTimeCharacteristicUUID:
-                startTimeCharacteristic = characteristic
-                print("FOUND startTimeCharacteristic")
+            case BLEParamters.timeTillStartCharacteristicUUID:
+                ble.timeTillStartCharacteristic = characteristic
+                print("FOUND timeTillStartCharacteristic")
                 numChars += 1
-            case BLEParamters.stopTimeCharacteristicUUID:
-                stopTimeCharacteristic = characteristic
-                print("FOUND stopTimeCharacteristic")
+            case BLEParamters.lightTimeCharacteristicUUID:
+                ble.lightTimeCharacteristic = characteristic
+                print("FOUND lightTimeCharacteristic")
                 numChars += 1
             case BLEParamters.lightOptionCharacteristicUUID:
-                lightOptionCharacteristic = characteristic
+                ble.lightOptionCharacteristic = characteristic
                 print("FOUND lightOptionCharacteristic")
                 numChars += 1
             default: break
@@ -249,7 +237,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
         if let error = error {
                 // Handle error
-                print("ERROR writing value")
+            print("ERROR writing value to characteristic \(characteristic.uuid)")
                 return
             }
         // else successful ?
@@ -258,14 +246,15 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     func write(value: Data, characteristic: CBCharacteristic) {
         //self.myPeripheral.writeValue(value, for: characteristic, type: .withResponse)
         // OR
-       self.myPeripheral.writeValue(value, for: characteristic, type: .withoutResponse)
+       //self.myPeripheral.writeValue(value, for: characteristic, type: .withoutResponse)
+        ble.myPeripheral?.writeValue(value, for: characteristic, type: .withResponse)
      }
     
     func toggleLights( val: Int8)
     {
         var parameter = NSInteger(val)  // sets write val
         let data = NSData(bytes: &parameter, length: 1)
-        characteristicvars.myPeripheral!.writeValue(data as Data, for: characteristicvars.toggleLightsCharacteristic!, type: CBCharacteristicWriteType.withoutResponse)
+        ble.myPeripheral!.writeValue(data as Data, for: ble.toggleLightsCharacteristic!, type: CBCharacteristicWriteType.withResponse)
     }
     
 //-------------------------StoryBoard Code below here------------------------------
@@ -277,9 +266,11 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         ContinueButton?.isHidden = true;
         statusLabel?.isHidden = true;
         helpLabel?.isHidden = true;
-        
     }
     
+    //LANDING PAGE:
+    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var ContinueButton: UIButton!
     @IBOutlet weak var connectBluetoothButton: UIButton!
     @IBAction func connectBluetoothAction(_ sender: Any) {
         centralManager = CBCentralManager(delegate: self, queue: nil)  // set up central manager.
@@ -287,17 +278,6 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         statusLabel.textColor = UIColor.black
         statusLabel.isHidden = false;
     }
-    
-
-    //LANDING PAGE:
-    @IBOutlet weak var statusLabel: UILabel!
-    @IBOutlet weak var ContinueButton: UIButton!
-    @IBOutlet weak var startBluetoothButton: UIButton!
-    @IBAction func startBluetoothAction(_ sender: Any) {
-        //bleLand.startUpCentralManager()
-        startBluetoothButton.isEnabled = false
-    }
-    
     
     //READINGS PAGE
     @IBOutlet weak var TempLabel: UILabel!
@@ -314,7 +294,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
             var parameter = NSInteger(1)  // sets high alert
             let data = NSData(bytes: &parameter, length: 1)
             //if toggleLightsCharacteristic == nil { print("in write: TOGGLE LIGHTS CHAR IS NIL") } // is printed
-            if characteristicvars.toggleLightsCharacteristic != nil{
+            if ble.toggleLightsCharacteristic != nil{
                 //write(value: data as Data, characteristic: characteristicvars.toggleLightsCharacteristic!);
                 //characteristicvars.myPeripheral!.writeValue(data as Data, for: characteristicvars.toggleLightsCharacteristic!, type: .withoutResponse)
                 toggleLights(val: 1)
@@ -324,8 +304,8 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         } else {
             var parameter = NSInteger(0)  // sets high alert
             let data = NSData(bytes: &parameter, length: 1)
-            if characteristicvars.toggleLightsCharacteristic != nil{
-                //write(value: data as Data, characteristic: toggleLightsCharacteristic);
+            if ble.toggleLightsCharacteristic != nil{
+                //write(value: data as Data, characteristic: characteristicvars.toggleLightsCharacteristic!);
                 //characteristicvars.myPeripheral!.writeValue(data as Data, for: characteristicvars.toggleLightsCharacteristic!, type: .withoutResponse)
                 toggleLights(val: 0)
                 print("LIGHTS: wrote value 0")
@@ -348,8 +328,10 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         if(NSDate().timeIntervalSince(StartTime.date) > 0) // if the time already passed today
         {
             // have the start time be one day in the future from right now minus the difference.
-            //print("this time has passed")
             startDiff = (60*60*24) - startDiff;
+        }
+        if(startDiff-endDiff > 0) {
+            lightTime = (60*60*24) - lightTime;
         }
         
         // this is all just for debugging
@@ -362,10 +344,22 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         print("SENDING LIGHT SCHEDULE DATA:")
         print("Start time: \(strDate)")
         print("End time: \(endDate)")
+        //these are the two times to send:
         print("Total: seconds of light: \(lightTime)")
         print("Starting in \(startDiff)sec from now")
         
         //then  need to send data
+        // TODO: The numbers are being truncated to a uint8.
+        // need uint16
+        var parameter1 = NSInteger(Int(startDiff))
+        let data1  = NSData(bytes: &parameter1, length: 2)
+        
+        var parameter2 = NSInteger(Int(lightTime))
+        let data2  = NSData(bytes: &parameter2, length: 2)
+        print("sending: \(data1) \(data2)")
+        ble.myPeripheral!.writeValue(data1 as Data, for: ble.timeTillStartCharacteristic!, type: CBCharacteristicWriteType.withResponse)
+        ble.myPeripheral!.writeValue(data2 as Data, for: ble.lightTimeCharacteristic!, type: CBCharacteristicWriteType.withResponse)
+        
         
     }
     
@@ -393,35 +387,34 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     @IBAction func automateAction(_ sender: UISwitch) {
         
             if sender.isOn {
-                var parameter = NSInteger(1)  // write val 1
-                let data = NSData(bytes: &parameter, length: 1)
-                //if toggleLightsCharacteristic == nil { print("in write: TOGGLE LIGHTS CHAR IS NIL") } // is printed
-                if waterNowCharacteristic != nil{
-                    print("Automate Watering on")
+                if ble.automateCharacteristic != nil{
+                    var parameter = NSInteger(1)
+                    let data  = NSData(bytes: &parameter, length: 1)
+                    ble.myPeripheral!.writeValue(data as Data, for: ble.automateCharacteristic!, type: CBCharacteristicWriteType.withResponse)
+                    print("Automate Watering ON")
                 }
-                print("Automate Watering: ON")
+            }
+            else {
+                if ble.automateCharacteristic != nil{
+                    var parameter = NSInteger(0)
+                    let data  = NSData(bytes: &parameter, length: 1)
+                    ble.myPeripheral!.writeValue(data as Data, for: ble.automateCharacteristic!, type: CBCharacteristicWriteType.withResponse)
+                    print("Automate Watering OFF")
                 }
-                else {
-                    var parameter = NSInteger(0)  // write val 1
-                    let data = NSData(bytes: &parameter, length: 1)
-                    //if toggleLightsCharacteristic == nil { print("in write: TOGGLE LIGHTS CHAR IS NIL") } // is printed
-                    if automateCharacteristic != nil{
-                        print("Automate Watering off")
-                    }
-                    print("Automate Watering: OFF")
-                }
+            }
             
     }
     @IBOutlet weak var waterNowButton: UIButton!
     @IBAction func WaterNowAction(_ sender: Any) {
-        var parameter = NSInteger(1)  // write val 1
-        let data = NSData(bytes: &parameter, length: 1)
         //if toggleLightsCharacteristic == nil { print("in write: TOGGLE LIGHTS CHAR IS NIL") } // is printed
-        if waterNowCharacteristic != nil{
-            print("Watering now")
+        if ble.waterNowCharacteristic != nil{
+            var parameter = NSInteger(1)
+            let data  = NSData(bytes: &parameter, length: 1)
+            ble.myPeripheral!.writeValue(data as Data, for: ble.waterNowCharacteristic!, type: CBCharacteristicWriteType.withResponse)
+            print("Manually watering now")
         }
-        print("Watering now")
-    // do i need to write back to a 0 to turn pump off? We'll see
+    // do i need to write back to a 0 to turn pump off? We'll see.
+    //My guess is we need to make sure the write goes through, then send a 0 after X seconds to turn the pump off.
     }
     
     
@@ -450,82 +443,16 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         print("Start time: \(strDate) (\(time) seconds from now)")
         print("Every \(waterFreqInt) days (\(waterFreqSeconds) seconds)")
         
+        // send data:
+        var parameter2 = NSInteger(waterFreqInt)
+        let data2  = NSData(bytes: &parameter2, length: 1)
+        ble.myPeripheral!.writeValue(data2 as Data, for: ble.waterFreqCharacteristic!, type: CBCharacteristicWriteType.withResponse)
+        
+        var parameter1 = NSInteger(time)
+        let data1  = NSData(bytes: &parameter1, length: 1)
+        ble.myPeripheral!.writeValue(data1 as Data, for: ble.waterTimeCharacteristic!, type: CBCharacteristicWriteType.withResponse)
+        
     }
-    
-    
-// OLD JUNK IM TOO AFRAID TO DELETE------------------------------
-    
-    func blueToothOn()
-    {
-        searchButton.isEnabled = true
-    }
-    
-    @IBOutlet weak var searchButton: UIButton!
-    @IBAction func SearchAction(_ sender: AnyObject) {
-        //bleLand.discoverDevice()
-        searchButton.isEnabled = false
-    }
-    
-    func foundDevice()
-    {
-        connectDeviceButton.isEnabled = true
-    }
-    
-    @IBOutlet weak var connectDeviceButton: UIButton!
-    @IBAction func connectDeviceAction(sender: AnyObject){
-        connectDeviceButton.isEnabled = false
-        //bleLand.connectToDevice()
-    }
-    
-    func connectionComplete()
-    {
-        discoverServicesButton.isEnabled = true
-        disconnectButton.isEnabled = true
-    }
-    
-    @IBOutlet weak var discoverServicesButton: UIButton!
-    @IBAction func discoverServicesAction(sender: AnyObject) {
-        //bleLand.discoverServices()
-        discoverServicesButton.isEnabled = false
-    }
-    
-    func discoveredServices()
-    {
-        discoverCharacteristicsButton.isEnabled = true
-    }
-  
-    
-    @IBOutlet weak var discoverCharacteristicsButton: UIButton!
-    
-    @IBAction func discoverCharacteristicsAction(sender: AnyObject) {
-        //bleLand.discoverCharacteristics()
-        discoverCharacteristicsButton.isEnabled = false
-    }
-    
-    func discoveredCharacteristics()
-    {
-        //ledSwitch.enabled = true
-        //capsenseNotifySwitch.enabled = true
-    }
-   
-    
-    @IBOutlet weak var disconnectButton: UIButton!
-    
-    @IBAction func disconnectAction(sender: AnyObject) {
-        //bleLand.disconnectDevice()
-    }
-    func disconnectedComplete()
-    {
-        searchButton.isEnabled = true
-        connectDeviceButton.isEnabled = false
-        discoverServicesButton.isEnabled = false
-        discoverCharacteristicsButton.isEnabled = false
-        disconnectButton.isEnabled = false
-        //ledSwitch.isEnabled = false
-        //capsenseNotifySwitch.isEnabled = false
-        //capsenseNotifySwitch.isOn = false
-    }
-    
 
 }
 
