@@ -18,6 +18,7 @@ private struct BLEParamters {
     static let tempCharacteristicUUID = CBUUID(string: "2A6E")
     static let moistCharacteristicUUID = CBUUID(string: "2A6F")
     static let phCharacteristicUUID = CBUUID(string: "2A70")
+    static let temp2CharacteristicUUID = CBUUID(string: "278B")
     //water service:
     static let waterServiceUUID = CBUUID(string: "AAAA")
     static let waterNowCharacteristicUUID = CBUUID(string: "A001")
@@ -52,6 +53,7 @@ struct ble {
     static var tempCharacteristic : CBCharacteristic? = nil
     static var moistCharacteristic : CBCharacteristic? = nil
     static var phCharacteristic : CBCharacteristic? = nil
+    static var temp2Characteristic : CBCharacteristic? = nil
     //vars for water service
     static var waterService : CBService? = nil
     static var waterNowCharacteristic : CBCharacteristic? = nil
@@ -177,12 +179,18 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
                 numChars += 1
             case BLEParamters.tempCharacteristicUUID:
                 ble.tempCharacteristic = characteristic
-                ble.myPeripheral.setNotifyValue(true, for: characteristic)
-                //ble.myPeripheral.readValue(for: characteristic)
+                ble.myPeripheral.setNotifyValue(true, for: ble.tempCharacteristic!)
+                ble.myPeripheral.readValue(for: characteristic)
                 print("FOUND tempCharacteristic")
                 numChars += 1
             case BLEParamters.phCharacteristicUUID:
                 ble.phCharacteristic = characteristic
+                ble.myPeripheral.setNotifyValue(true, for: characteristic)
+                //ble.myPeripheral.readValue(for: characteristic)
+                print("FOUND phCharacteristic")
+                numChars += 1
+            case BLEParamters.temp2CharacteristicUUID:
+                ble.temp2Characteristic = characteristic
                 ble.myPeripheral.setNotifyValue(true, for: characteristic)
                 //ble.myPeripheral.readValue(for: characteristic)
                 print("FOUND phCharacteristic")
@@ -250,6 +258,38 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         // else successful ?
     }
     /* Read, update a characteristic */
+    
+    func decode_temp(x: Int, y: Int ) -> Double {
+        
+        let x = x
+        var y = y
+
+        var arr = [0,0,0,0,0,0,0,0]
+        var i = 0
+        var res = Double(x)
+
+        if(y > 0){
+            while( y > 0){
+                arr[7-i] = y % 2
+                i+=1
+                y = y/2
+            }
+        }
+
+        if((arr[0]) != 0) {
+            res += 0.5
+        }
+        if((arr[1]) != 0) {
+            res += 0.25
+        }
+        if((arr[2]) != 0) {
+            res += 0.125
+        }
+        res = (res*9/5)+32
+        
+        return Double(round(10*res)/10)
+    }
+    
     //TODO: UPDATE VALUES IN VC
     var tempReading = 0;
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
@@ -261,12 +301,14 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
             //var byte1: Int = characteristic.value?.first
             let array = [UInt8](characteristic.value!)
             print("\(array)")
-            
             break
         case BLEParamters.tempCharacteristicUUID:
             //tempReading = characteristic.value
-            print("New TEMP reading: \(characteristic.value?.first)") //gets first byte of data
-            var out: NSInteger = 0;
+            print("New TEMP reading: \(characteristic.value?.first), \(characteristic.value?.last)") //gets first byte of data
+            var tempReading = decode_temp( x: Int((characteristic.value?.first)!), y: Int((characteristic.value?.last)!))
+            print("AKA: \(tempReading)")
+            vc.tempString = "\(tempReading)"
+            //var out: NSInteger = 0;
             break
         case BLEParamters.phCharacteristicUUID:
             //tempReading = characteristic.value
@@ -274,7 +316,6 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
             break
         default:
             print("ERROR: unknown read occured from \(characteristic.uuid)")
-        
         }
     }
 
@@ -341,12 +382,10 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     override func viewDidLoad() {
         // all set up to do after loading the view
         print("App running...")
-        print(vc.lightSwitchVal)
         super.viewDidLoad()
         ContinueButton?.isHidden = true;
         statusLabel?.isHidden = true;
         helpLabel?.isHidden = true;
-        
         
         //reading page set in didUpdateValueFor above
         TempLabel?.text = vc.tempString
@@ -358,15 +397,15 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         EndTime?.date = vc.lightEnd as Date
         switch(vc.lightOption){
         case(0):
-            lightToggleStack?.backgroundColor = UIColor.white
-            lightTimerStack?.backgroundColor = UIColor.white
+            lightToggleStack?.backgroundColor = UIColor.systemBackground
+            lightTimerStack?.backgroundColor = UIColor.systemBackground
             break
         case(1):
             lightToggleStack?.backgroundColor = UIColor.systemGray5
-            lightTimerStack?.backgroundColor = UIColor.white
+            lightTimerStack?.backgroundColor = UIColor.systemBackground
             break
         case(2):
-            lightToggleStack?.backgroundColor = UIColor.white
+            lightToggleStack?.backgroundColor = UIColor.systemBackground
             lightTimerStack?.backgroundColor = UIColor.systemGray5
             break
         default:
@@ -452,7 +491,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         
         //update viewDidLoad
         lightToggleStack?.backgroundColor = UIColor.systemGray5
-        lightTimerStack?.backgroundColor = UIColor.white
+        lightTimerStack?.backgroundColor = UIColor.systemBackground
         vc.lightSwitchVal = sender.isOn
         vc.lightOption = 1
         //print("set to \(vc.lightSwitchVal)")
@@ -471,22 +510,34 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     @IBOutlet weak var SetTimeButton: UIButton!
     // has problems when you set the time to start to be the current time.
     @IBAction func SetTimeAction(_ sender: Any) {
-        var startDiff = abs(NSDate().timeIntervalSince(StartTime.date))
-        let endDiff = abs(NSDate().timeIntervalSince(EndTime.date))
-        var lightTime = abs(startDiff-endDiff)
         
-        if(NSDate().timeIntervalSince(StartTime.date) > 0) // if the time already passed today
-        {
-            // have the start time be one day in the future from right now minus the difference.
-            startDiff = (60*60*24) - startDiff;
-            if(NSDate().timeIntervalSince(StartTime.date) < 0) // if the stop time has NOT passed
-            {
-                lightTime = abs( ((60*40*24) - lightTime) )
-            }
+        
+        var startDiff = NSDate().timeIntervalSince(StartTime.date)
+        let endDiff = NSDate().timeIntervalSince(EndTime.date)
+        var lightTime = 0.0
+        var startTime = 0.0
+        
+        if( startDiff > 0 && endDiff > 0){ // if both times have passed
+            lightTime = startDiff - endDiff
+            startTime = (60*60*24) - startDiff
         }
-        if(StartTime.date.timeIntervalSince(EndTime.date) > 0) { // if start time is before endtime
-            lightTime = (60*60*24) - lightTime;
+        else if( startDiff > 0 && endDiff < 0){ // if the start date has passed and the end date hasnt
+            lightTime = abs(startDiff - endDiff)
+            startTime = (60*60*24) - startDiff
         }
+        else if( startDiff < 0 && endDiff > 0){  // if the start date hasn't passed but the end date has
+            lightTime = (60*60*24) - abs( startDiff - endDiff)
+            startTime = abs(startDiff)
+        }
+        else if( startDiff < 0 && endDiff < 0) {  // if neither times have passed
+            lightTime = startDiff - endDiff
+            startTime = abs(startDiff)
+        }
+        
+        if(startDiff > 0 && startDiff < 60){  // if the start time is this current minute
+            startTime = 1 // have it start immediatly
+        }
+        
         
         // this is all just for debugging
         let dateFormatter = DateFormatter()
@@ -496,7 +547,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         let endDate = dateFormatter.string(from: EndTime.date)
         
         
-        let startDiffInt = Int(round(startDiff));
+        let startTimeInt = Int(round(startTime));
         let lightTimeInt = Int(round(lightTime));
         
         //let startDiffInt = startDiff;
@@ -507,12 +558,10 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         print("End time: \(endDate)")
         //these are the two times to send:
         print("Total: seconds of light: \(lightTimeInt)")
-        print("Starting in \(startDiffInt) sec from now")
+        print("Starting in \(startTimeInt) sec from now")
         
         //then  need to send data
-        // TODO: The numbers are being truncated to a uint8.
-        // need uint16
-        var parameter1 = NSInteger(Int(startDiffInt))
+        var parameter1 = NSInteger(Int(startTimeInt))
         let data1  = NSData(bytes: &parameter1, length: 4)
         
         var parameter2 = NSInteger(Int(lightTimeInt))
@@ -531,7 +580,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         vc.lightStart = StartTime.date as NSDate
         vc.lightEnd = EndTime.date as NSDate
         vc.lightOption = 2
-        lightToggleStack?.backgroundColor = UIColor.white
+        lightToggleStack?.backgroundColor = UIColor.systemBackground
         lightTimerStack?.backgroundColor = UIColor.systemGray5
         
         
@@ -629,14 +678,23 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
             print("Missing required fields")
             return
         }
+        
         var time = abs(NSDate().timeIntervalSince(WaterTime.date))
+        //var extraTime = 0.0;
         if(NSDate().timeIntervalSince(WaterTime.date) > 0) // if the time already passed today
         {
-            // have the start time be one day in the future from right now minus the difference.
-            print("this time has passed")
-            time = (60*60*24) - time;
+            if( time < 60){ // this time is this current minute. Start it immediatly
+                // extraTime = time  // need to add this remaining time to the timer so it still ends at top of minute.
+                // if we used this ^^ we would need to have it run longer for the first time and then back to normal after. Leave it for now
+                // the only diff will be if they start it on the minute it runs the second they pushed, not top of minute.
+                time = 0
+            }
+            else { // this time has passed. Have it start tomorrow
+                print("this time has passed")
+                time = (60*60*24) - time;
+            }
         }
-        let waterFreqInt = Int(WaterFreq.text ?? "0")!;  // if no feild is entereed freq set to 0
+        let waterFreqInt = Int(WaterFreq.text ?? "0")!;  // if no feild is entered freq set to 0
         let waterFreqSeconds = (60*60*24*waterFreqInt)
         // this is all just for debugging
         let dateFormatter = DateFormatter()
@@ -662,6 +720,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         let data3  = NSData(bytes: &parameter3, length: 1)
         ble.myPeripheral!.writeValue( data3 as Data, for: ble.waterOptionCharacteristic!, type: CBCharacteristicWriteType.withResponse)
         
+        //update VC
         vc.waterFreqString = WaterFreq.text!
         vc.waterStart = WaterTime.date as NSDate
         waterTimeStack?.backgroundColor = UIColor.systemGray5
