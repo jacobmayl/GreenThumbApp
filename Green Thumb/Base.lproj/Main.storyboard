@@ -352,90 +352,73 @@
                                     <constraint firstAttribute="height" constant="100" id="9Cf-lP-wbc"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iDz-Nl-5s5">
-                                <rect key="frame" x="114" y="285" width="200" height="30"/>
-                                <color key="backgroundColor" systemColor="systemBlueColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="G27-Iq-vOB"/>
-                                    <constraint firstAttribute="height" constant="30" id="Qir-sx-4yA"/>
-                                </constraints>
-                                <state key="normal" title="water">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="WATER NOW">
-                                            <attributes>
-                                                <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <font key="NSFont" size="15" name="Futura-Medium"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="WaterNowAction:" destination="iOw-Fe-tAq" eventType="touchUpInside" id="EkV-pa-cdj"/>
-                                </connections>
-                            </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eXS-Ja-hN7" userLabel="Schedule Stack View">
-                                <rect key="frame" x="64" y="362.33333333333331" width="300" height="179.99999999999994"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="CZN-PN-eRe" userLabel="Water Now Stack View">
+                                <rect key="frame" x="84" y="250" width="260" height="68"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0a9-wP-LiZ">
-                                        <rect key="frame" x="82" y="0.0" width="136" height="31.333333333333332"/>
-                                        <attributedString key="attributedText">
-                                            <fragment content="Water every">
-                                                <attributes>
-                                                    <font key="NSFont" size="24" name="Futura-Medium"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                        </attributedString>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Zkb-qV-lpG" userLabel="Days Stack View">
-                                        <rect key="frame" x="85.666666666666671" y="39.333333333333371" width="128.66666666666663" height="41.333333333333343"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="YcS-p9-yPh" userLabel="Cups Stack View">
+                                        <rect key="frame" x="9.6666666666666856" y="0.0" width="241" height="30"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pwI-sK-8KI" userLabel="Days Text Field">
-                                                <rect key="frame" x="0.0" y="3.6666666666666288" width="32" height="34"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="light" smartDashesType="no"/>
-                                                <connections>
-                                                    <action selector="WaterFreqAction:" destination="iOw-Fe-tAq" eventType="editingDidEnd" id="SiB-v8-9Kr"/>
-                                                    <action selector="number_days:" destination="FvQ-ON-0Gz" eventType="editingDidEnd" id="M9m-AT-vpi"/>
-                                                </connections>
-                                            </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gTh-33-k9W">
-                                                <rect key="frame" x="40.000000000000007" y="4.9999999999999982" width="88.666666666666686" height="31.333333333333329"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCJ-7e-zQ9">
+                                                <rect key="frame" x="0.0" y="0.0" width="120" height="30"/>
                                                 <attributedString key="attributedText">
-                                                    <fragment content="days at:">
+                                                    <fragment content="Cups of water:">
                                                         <attributes>
-                                                            <font key="NSFont" size="24" name="Futura-Medium"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            <font key="NSFont" size="18" name="Futura-Medium"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
                                                 </attributedString>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="1" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kx9-PU-3yV">
+                                                <rect key="frame" x="133" y="0.0" width="35" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation" returnKeyType="done" enablesReturnKeyAutomatically="YES" smartDashesType="no"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zR7-qw-Drf">
+                                                <rect key="frame" x="181" y="0.0" width="60" height="30"/>
+                                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="60" id="IC9-4l-68c"/>
+                                                    <constraint firstAttribute="height" constant="30" id="OO5-oz-AVs"/>
+                                                </constraints>
+                                                <state key="normal">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="SET">
+                                                            <attributes>
+                                                                <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <font key="NSFont" size="15" name="Futura-Medium"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="15"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="setWaterCupsAction:" destination="iOw-Fe-tAq" eventType="touchUpInside" id="qKr-zb-2n4"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                     </stackView>
-                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="KWo-4b-NAl">
-                                        <rect key="frame" x="51.666666666666686" y="88.666666666666686" width="197" height="53.333333333333343"/>
-                                        <connections>
-                                            <action selector="WaterTimeAction:" destination="iOw-Fe-tAq" eventType="valueChanged" id="yHB-bJ-nQg"/>
-                                            <action selector="water_time:" destination="FvQ-ON-0Gz" eventType="valueChanged" id="ghl-Nk-tgp"/>
-                                        </connections>
-                                    </datePicker>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9cW-T4-7yh">
-                                        <rect key="frame" x="125" y="150.00000000000006" width="50" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iDz-Nl-5s5">
+                                        <rect key="frame" x="30" y="38" width="200" height="30"/>
                                         <color key="backgroundColor" systemColor="systemBlueColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="jv0-cv-8Lf"/>
-                                            <constraint firstAttribute="height" constant="30" id="vL0-PI-8p6"/>
+                                            <constraint firstAttribute="width" constant="200" id="G27-Iq-vOB"/>
+                                            <constraint firstAttribute="height" constant="30" id="Qir-sx-4yA"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
-                                        <state key="normal" title="SET">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="water">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="WATER NOW">
+                                                    <attributes>
+                                                        <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <font key="NSFont" size="15" name="Futura-Medium"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -443,14 +426,12 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="SetWaterAction:" destination="iOw-Fe-tAq" eventType="touchUpInside" id="0mT-wp-zjx"/>
+                                            <action selector="WaterNowAction:" destination="iOw-Fe-tAq" eventType="touchUpInside" id="EkV-pa-cdj"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="180" id="BWO-Iu-TNY" userLabel="height = 150"/>
-                                    <constraint firstAttribute="width" constant="300" id="UEK-m2-dAG" userLabel="width = 300"/>
+                                    <constraint firstAttribute="width" constant="260" id="lfb-oR-IsB"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -459,7 +440,7 @@
                                 </userDefinedRuntimeAttributes>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Wdi-9H-bti" userLabel="automate stack view">
-                                <rect key="frame" x="114" y="632.66666666666663" width="200" height="30"/>
+                                <rect key="frame" x="114" y="694" width="200" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wk7-zM-ddu">
                                         <rect key="frame" x="0.0" y="0.0" width="105" height="30"/>
@@ -506,7 +487,7 @@
                                 </userDefinedRuntimeAttributes>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nku-xj-s0M">
-                                <rect key="frame" x="201.33333333333334" y="555.66666666666663" width="25.666666666666657" height="22.333333333333371"/>
+                                <rect key="frame" x="201.33333333333334" y="635" width="25.666666666666657" height="22.333333333333371"/>
                                 <attributedString key="attributedText">
                                     <fragment content="OR">
                                         <attributes>
@@ -518,7 +499,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FMe-ef-gjL">
-                                <rect key="frame" x="201.33333333333334" y="334.33333333333331" width="25.666666666666657" height="22.333333333333314"/>
+                                <rect key="frame" x="201.33333333333334" y="360" width="25.666666666666657" height="22.333333333333314"/>
                                 <attributedString key="attributedText">
                                     <fragment content="OR">
                                         <attributes>
@@ -543,31 +524,116 @@
                                     <segue destination="SWW-lL-dfI" kind="show" id="upp-UH-Iqy"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="When the moisture reading gets too low, the watering system will turn on automatically" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k9X-ax-FDo">
-                                <rect key="frame" x="20" y="670" width="388" height="87"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When the moisture reading gets too low, the watering system will automatically dispense the cups of water specified above." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k9X-ax-FDo">
+                                <rect key="frame" x="20" y="732" width="388" height="87"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="388" id="Gd0-H9-4kI"/>
+                                    <constraint firstAttribute="height" constant="87" id="ffY-Lj-Qcp"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
                                 <color key="textColor" systemColor="systemBlueColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eXS-Ja-hN7" userLabel="Schedule Stack View">
+                                <rect key="frame" x="64" y="415" width="300" height="180"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0a9-wP-LiZ">
+                                        <rect key="frame" x="82" y="0.0" width="136" height="31.333333333333332"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Water every">
+                                                <attributes>
+                                                    <font key="NSFont" size="24" name="Futura-Medium"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Zkb-qV-lpG" userLabel="Days Stack View">
+                                        <rect key="frame" x="85.666666666666671" y="39.333333333333314" width="128.66666666666663" height="41.333333333333343"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pwI-sK-8KI" userLabel="Days Text Field">
+                                                <rect key="frame" x="0.0" y="3.6666666666666856" width="32" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="continue" smartDashesType="no"/>
+                                                <connections>
+                                                    <action selector="WaterFreqAction:" destination="iOw-Fe-tAq" eventType="editingDidEnd" id="SiB-v8-9Kr"/>
+                                                    <action selector="number_days:" destination="FvQ-ON-0Gz" eventType="editingDidEnd" id="M9m-AT-vpi"/>
+                                                </connections>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gTh-33-k9W">
+                                                <rect key="frame" x="40.000000000000007" y="4.9999999999999982" width="88.666666666666686" height="31.333333333333329"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="days at:">
+                                                        <attributes>
+                                                            <font key="NSFont" size="24" name="Futura-Medium"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="KWo-4b-NAl">
+                                        <rect key="frame" x="51.666666666666686" y="88.666666666666686" width="197" height="53.333333333333343"/>
+                                        <connections>
+                                            <action selector="WaterTimeAction:" destination="iOw-Fe-tAq" eventType="valueChanged" id="yHB-bJ-nQg"/>
+                                            <action selector="water_time:" destination="FvQ-ON-0Gz" eventType="valueChanged" id="ghl-Nk-tgp"/>
+                                        </connections>
+                                    </datePicker>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9cW-T4-7yh">
+                                        <rect key="frame" x="115" y="150" width="70" height="30"/>
+                                        <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="70" id="jv0-cv-8Lf"/>
+                                            <constraint firstAttribute="height" constant="30" id="vL0-PI-8p6"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                        <state key="normal" title="SET">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="SetWaterAction:" destination="iOw-Fe-tAq" eventType="touchUpInside" id="0mT-wp-zjx"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="180" id="BWO-Iu-TNY" userLabel="height = 150"/>
+                                    <constraint firstAttribute="width" constant="300" id="UEK-m2-dAG" userLabel="width = 300"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WNp-lr-XQe"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="iDz-Nl-5s5" firstAttribute="centerX" secondItem="l7m-j5-Wv0" secondAttribute="centerX" id="0Hs-av-s76"/>
-                            <constraint firstItem="FMe-ef-gjL" firstAttribute="centerY" secondItem="l7m-j5-Wv0" secondAttribute="centerY" constant="-90.5" id="0wj-wY-oCk"/>
-                            <constraint firstItem="Nku-xj-s0M" firstAttribute="centerY" secondItem="l7m-j5-Wv0" secondAttribute="centerY" constant="130.83000000000001" id="20t-ff-jcb"/>
                             <constraint firstItem="eXS-Ja-hN7" firstAttribute="centerX" secondItem="l7m-j5-Wv0" secondAttribute="centerX" id="2Gu-We-KYL"/>
                             <constraint firstItem="9GY-lp-PtI" firstAttribute="centerX" secondItem="l7m-j5-Wv0" secondAttribute="centerX" constant="-163" id="4qt-lD-oNY"/>
+                            <constraint firstItem="CZN-PN-eRe" firstAttribute="centerY" secondItem="l7m-j5-Wv0" secondAttribute="centerY" constant="-152" id="7dz-Ub-NlT"/>
+                            <constraint firstItem="CZN-PN-eRe" firstAttribute="centerX" secondItem="l7m-j5-Wv0" secondAttribute="centerX" id="9kT-kV-1Q1"/>
+                            <constraint firstItem="k9X-ax-FDo" firstAttribute="centerX" secondItem="l7m-j5-Wv0" secondAttribute="centerX" id="DRd-pQ-y3K"/>
+                            <constraint firstItem="Nku-xj-s0M" firstAttribute="centerY" secondItem="l7m-j5-Wv0" secondAttribute="centerY" constant="210.16999999999999" id="Ft1-yv-3ul"/>
                             <constraint firstItem="Wdi-9H-bti" firstAttribute="centerX" secondItem="l7m-j5-Wv0" secondAttribute="centerX" id="Ixc-JO-ech"/>
-                            <constraint firstItem="iDz-Nl-5s5" firstAttribute="centerY" secondItem="l7m-j5-Wv0" secondAttribute="centerY" constant="-136" id="WFf-c6-8gn"/>
+                            <constraint firstItem="FMe-ef-gjL" firstAttribute="centerY" secondItem="l7m-j5-Wv0" secondAttribute="centerY" constant="-64.829999999999998" id="X1I-hg-hTR"/>
+                            <constraint firstItem="k9X-ax-FDo" firstAttribute="centerY" secondItem="l7m-j5-Wv0" secondAttribute="centerY" constant="339.5" id="ZnF-73-Wdw"/>
                             <constraint firstItem="FMe-ef-gjL" firstAttribute="centerX" secondItem="l7m-j5-Wv0" secondAttribute="centerX" id="a8u-AR-tgA"/>
-                            <constraint firstItem="Wdi-9H-bti" firstAttribute="centerY" secondItem="l7m-j5-Wv0" secondAttribute="centerY" constant="211.5" id="bdK-js-AdR"/>
                             <constraint firstItem="9GY-lp-PtI" firstAttribute="centerY" secondItem="l7m-j5-Wv0" secondAttribute="centerY" constant="-318.67000000000002" id="fCY-jR-AKM"/>
                             <constraint firstItem="ffy-I9-7Yp" firstAttribute="centerY" secondItem="l7m-j5-Wv0" secondAttribute="centerY" constant="-262.82999999999998" id="gsF-nS-I2a"/>
                             <constraint firstItem="Nku-xj-s0M" firstAttribute="centerX" secondItem="l7m-j5-Wv0" secondAttribute="centerX" id="hTZ-Us-NPh"/>
-                            <constraint firstItem="eXS-Ja-hN7" firstAttribute="centerY" secondItem="l7m-j5-Wv0" secondAttribute="centerY" constant="16.329999999999998" id="j04-ro-jPx"/>
                             <constraint firstItem="ffy-I9-7Yp" firstAttribute="centerX" secondItem="l7m-j5-Wv0" secondAttribute="centerX" id="qdT-zh-BKm"/>
+                            <constraint firstItem="Wdi-9H-bti" firstAttribute="centerY" secondItem="l7m-j5-Wv0" secondAttribute="centerY" constant="273" id="vZ1-EC-uDR"/>
+                            <constraint firstItem="eXS-Ja-hN7" firstAttribute="centerY" secondItem="l7m-j5-Wv0" secondAttribute="centerY" constant="69" id="zSt-3R-f9m"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="1YB-Xu-Nte"/>
@@ -578,8 +644,11 @@
                         <outlet property="automateSwitch" destination="0UN-x3-k6n" id="ijC-s1-BJT"/>
                         <outlet property="helpButton" destination="2DL-NJ-39H" id="NMp-P6-AeI"/>
                         <outlet property="helpLabel" destination="k9X-ax-FDo" id="KpD-Ks-Xhg"/>
+                        <outlet property="setWaterCupsButton" destination="zR7-qw-Drf" id="f2V-dU-FWM"/>
                         <outlet property="waterAutomateStack" destination="Wdi-9H-bti" id="wdz-eC-XBi"/>
+                        <outlet property="waterCups" destination="kx9-PU-3yV" id="vXY-P6-3k2"/>
                         <outlet property="waterNowButton" destination="iDz-Nl-5s5" id="qJu-iF-FDu"/>
+                        <outlet property="waterNowStack" destination="CZN-PN-eRe" id="OIs-tw-ekN"/>
                         <outlet property="waterTimeStack" destination="eXS-Ja-hN7" id="TFq-KK-3bw"/>
                     </connections>
                 </viewController>
@@ -778,7 +847,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="uQA-fB-yQo"/>
+        <segue reference="upp-UH-Iqy"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.backward" catalog="system" width="128" height="98"/>

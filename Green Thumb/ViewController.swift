@@ -16,7 +16,7 @@ private struct BLEParamters {
     //get reading service:
     static let getReadingsServiceUUID = CBUUID(string: "AF7A")
     static let tempCharacteristicUUID = CBUUID(string: "2A6E")
-    static let moistCharacteristicUUID = CBUUID(string: "2A6F")
+    static let moistCharacteristicUUID = CBUUID(string: "2A69")  //was 2A6F
     static let phCharacteristicUUID = CBUUID(string: "2A70")
     static let temp2CharacteristicUUID = CBUUID(string: "278B")
     //water service:
@@ -26,6 +26,7 @@ private struct BLEParamters {
     static let waterTimeCharacteristicUUID = CBUUID(string: "A003")
     static let automateCharacteristicUUID = CBUUID(string: "A004")
     static let waterOptionCharacteristicUUID = CBUUID(string: "A005")
+    static let waterCupsCharacteristicUUID = CBUUID(string: "A006")
     //light service:
     static let lightServiceUUID = CBUUID(string: "BBBB")
     static let toggleLightsCharacteristicUUID = CBUUID(string: "B001")
@@ -61,6 +62,7 @@ struct ble {
     static var waterTimeCharacteristic : CBCharacteristic? = nil
     static var automateCharacteristic : CBCharacteristic? = nil
     static var waterOptionCharacteristic : CBCharacteristic? = nil
+    static var waterCupsCharacteristic : CBCharacteristic? = nil
     //vars for light service
     static var lightService : CBService? = nil
     static var toggleLightsCharacteristic : CBCharacteristic? = nil
@@ -79,7 +81,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     
     //for debug
     var totServices = 3;
-    var totChars = 12;
+    var totChars = 14;
     var numServices = 0;
     var numChars = 0;
     
@@ -152,7 +154,6 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
                 peripheral.discoverCharacteristics(nil, for: service)
             // add other services here as they come
             default:
-                //self.myPeripheral.discoverCharacteristics(nil, for: service) // added one more so light would flash
                 break
             }
 
@@ -173,9 +174,9 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
             // for Get Readings Service:
             case BLEParamters.moistCharacteristicUUID:
                 ble.moistCharacteristic = characteristic
+                ble.myPeripheral.setNotifyValue(true, for: ble.moistCharacteristic!)  // allow for update notifications
+                ble.myPeripheral.readValue(for: characteristic)  // sends value to peripheral: didUpdateValueForCharacteristic
                 print("FOUND moistCharacteristic")
-                ble.myPeripheral.setNotifyValue(true, for: characteristic)  // allow for update notifications
-                //ble.myPeripheral.readValue(for: characteristic)  // sends value to peripheral: didUpdateValueForCharacteristic
                 numChars += 1
             case BLEParamters.tempCharacteristicUUID:
                 ble.tempCharacteristic = characteristic
@@ -196,6 +197,10 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
                 print("FOUND phCharacteristic")
                 numChars += 1
             // for water service:
+            case BLEParamters.waterCupsCharacteristicUUID:
+                ble.waterCupsCharacteristic = characteristic
+                print("FOUND waterCupsCharacteristic")
+                numChars += 1
             case BLEParamters.waterNowCharacteristicUUID:
                 ble.waterNowCharacteristic = characteristic
                 print("FOUND waterNowCharacteristic")
@@ -295,20 +300,18 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         switch characteristic.uuid {
         case BLEParamters.moistCharacteristicUUID:
-            //var buffer : NSInteger = 0;
-            //characteristic.value?.
-            print("New MOIST reading: \(characteristic.value)") //gets first byte of data
-            //var byte1: Int = characteristic.value?.first
-            let array = [UInt8](characteristic.value!)
-            print("\(array)")
+            var perc = Int((characteristic.value?.first)!)
+            print("New MOIST reading: \(perc)") //gets first byte of data
+            vc.moistString = "\(perc)%"
+            MoistLabel?.text = "\(perc)%"
             break
         case BLEParamters.tempCharacteristicUUID:
             //tempReading = characteristic.value
-            print("New TEMP reading: \(characteristic.value?.first), \(characteristic.value?.last)") //gets first byte of data
+            //print("New TEMP reading: \(characteristic.value?.first), \(characteristic.value?.last)") //gets first byte of data
             var tempReading = decode_temp( x: Int((characteristic.value?.first)!), y: Int((characteristic.value?.last)!))
-            print("AKA: \(tempReading)")
+            print("new TEMP reading: \(tempReading)")
             vc.tempString = "\(tempReading)"
-            //var out: NSInteger = 0;
+            TempLabel?.text = "\(tempReading)"
             break
         case BLEParamters.phCharacteristicUUID:
             //tempReading = characteristic.value
@@ -341,7 +344,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         //readings
         static var tempString = "0"
         static var moistString = "0%"
-        static var phString = "0.0"
+        static var phString = "6.5"
         //lights
         static var lightSwitchVal = false
         static var lightStart = NSDate()
@@ -376,8 +379,10 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     }
     
     
-
-    
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
     
     override func viewDidLoad() {
         // all set up to do after loading the view
@@ -386,6 +391,9 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         ContinueButton?.isHidden = true;
         statusLabel?.isHidden = true;
         helpLabel?.isHidden = true;
+        //for exiting number keyboards
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))  //see func above
+        view.addGestureRecognizer(tap)
         
         //reading page set in didUpdateValueFor above
         TempLabel?.text = vc.tempString
@@ -426,6 +434,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
             waterAutomateStack?.backgroundColor = UIColor.systemGray5
             break
         case(2):
+            waterNowStack?.backgroundColor = UIColor.systemGray5
             waterTimeStack?.backgroundColor = UIColor.systemBackground
             waterAutomateStack?.backgroundColor = UIColor.systemBackground
             break
@@ -587,8 +596,18 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     }
     
 // WATER PAGE
+    
+    func isNumber(text:String)->Bool
+    {
+        if let intVal = Double(text)
+            {return true}
+        else
+            {return false}
+    }
+    
     @IBOutlet weak var waterTimeStack: UIStackView!
     @IBOutlet weak var waterAutomateStack: UIStackView!
+    
     @IBOutlet weak var WaterFreq: UITextField!
     @IBAction func WaterFreqAction(_ sender: Any) {
     }
@@ -596,6 +615,26 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     @IBOutlet weak var WaterTime: UIDatePicker!
     @IBAction func WaterTimeAction(_ sender: Any) {
     }
+    
+    
+    @IBOutlet weak var setWaterCupsButton: UIButton!
+    @IBAction func setWaterCupsAction(_ sender: Any) {
+        if isNumber(text: waterCups.text!) {
+            let waterCupsFloat = Double(waterCups.text ?? "0")!;
+            print("CUPS: \(waterCupsFloat)")
+            
+            var parameter = NSInteger(waterCupsFloat*4)
+            print(parameter)
+            let data  = NSData(bytes: &parameter, length: 1)
+            ble.myPeripheral!.writeValue(data as Data, for: ble.waterCupsCharacteristic!, type: CBCharacteristicWriteType.withResponse)
+            
+        } else {
+            print("\(waterCups.text!) IS NOT NUM")
+        }
+    }
+    @IBOutlet weak var waterCups: UITextField!
+    
+    
     
     @IBOutlet weak var helpLabel: UILabel!
     
@@ -642,9 +681,13 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         vc.waterSwitchVal = sender.isOn
         vc.waterOption = 1;
         waterTimeStack?.backgroundColor = UIColor.systemBackground
+        waterNowStack?.backgroundColor = UIColor.systemBackground
         waterAutomateStack?.backgroundColor = UIColor.systemGray5
         
     }
+    
+    @IBOutlet weak var waterNowStack: UIStackView!
+    
     @IBOutlet weak var waterNowButton: UIButton!
     @IBAction func WaterNowAction(_ sender: Any) {
         if ble.waterNowCharacteristic != nil{
@@ -660,6 +703,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
             
             //update vc
             vc.waterOption = 2
+            waterNowStack?.backgroundColor = UIColor.systemGray5
             waterTimeStack?.backgroundColor = UIColor.systemBackground
             waterAutomateStack?.backgroundColor = UIColor.systemBackground
             
@@ -672,6 +716,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     
     
     @IBOutlet weak var SetWaterButton: UIButton!
+    
     // TODO: fix water like you fixed lights
     @IBAction func SetWaterAction(_ sender: Any) {
         if(WaterTime == nil || WaterFreq.text == nil) {
@@ -725,6 +770,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         vc.waterStart = WaterTime.date as NSDate
         waterTimeStack?.backgroundColor = UIColor.systemGray5
         waterAutomateStack?.backgroundColor = UIColor.systemBackground
+        waterNowStack?.backgroundColor = UIColor.systemBackground
         vc.waterOption = 3
         
     }
